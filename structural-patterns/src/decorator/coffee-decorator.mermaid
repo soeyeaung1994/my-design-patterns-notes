@@ -1,0 +1,36 @@
+classDiagram
+    class Coffee {
+        <<interface>>
+        +getCost(): double
+        +getDescription(): String
+    }
+    class SimpleCoffee {
+        +getCost(): double
+        +getDescription(): String
+    }
+    class CoffeeDecorator {
+        <<abstract>>
+        -coffee: Coffee
+        +getCost(): double
+        +getDescription(): String
+    }
+    class MilkDecorator {
+        +getCost(): double
+        +getDescription(): String
+    }
+    class SugarDecorator {
+        +getCost(): double
+        +getDescription(): String
+    }
+
+    Coffee <|.. SimpleCoffee
+    Coffee <|.. CoffeeDecorator
+    CoffeeDecorator <|-- MilkDecorator
+    CoffeeDecorator <|-- SugarDecorator
+    CoffeeDecorator o--> Coffee
+
+    note for Coffee "ကော်ဖီအားလုံးအတွက် interface"
+    note for SimpleCoffee "အခြေခံကော်ဖီ"
+    note for CoffeeDecorator "Decorator များအတွက် abstract class"
+    note for MilkDecorator "နို့ထည့်ခြင်း"
+    note for SugarDecorator "သကြားထည့်ခြင်း"

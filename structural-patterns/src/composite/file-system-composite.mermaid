@@ -1,0 +1,31 @@
+classDiagram
+    class FileSystemComponent {
+        <<interface>>
+        +getName(): String
+        +getSize(): long
+        +showDetails()
+    }
+    class File {
+        -name: String
+        -size: long
+        +getName(): String
+        +getSize(): long
+        +showDetails()
+    }
+    class Directory {
+        -name: String
+        -components: List~FileSystemComponent~
+        +getName(): String
+        +getSize(): long
+        +showDetails()
+        +addComponent(FileSystemComponent)
+        +removeComponent(FileSystemComponent)
+    }
+
+    FileSystemComponent <|.. File
+    FileSystemComponent <|.. Directory
+    Directory o--> FileSystemComponent
+
+    note for FileSystemComponent "File System ထဲက item တိုင်းအတွက် interface"
+    note for File "File object (Leaf)\nထပ်မခွဲနိုင်သော file များ"
+    note for Directory "Folder object (Composite)\nfile နှင့် folder များကို စုစည်းထားသော object"

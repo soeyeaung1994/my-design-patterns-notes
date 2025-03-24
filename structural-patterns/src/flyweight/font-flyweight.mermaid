@@ -1,0 +1,29 @@
+classDiagram
+    class FontCharacter {
+        <<interface>>
+        +display(position: Point, size: int, color: Color)
+    }
+    class CharacterFlyweight {
+        -character: char
+        -fontFamily: String
+        -fontStyle: int
+        +display(position: Point, size: int, color: Color)
+    }
+    class FontFactory {
+        -characterMap: Map~String, FontCharacter~
+        +getCharacter(char, String, int): FontCharacter
+    }
+    class TextEditor {
+        -characters: List~FontCharacter~
+        +addCharacter(char, position, size, color)
+    }
+
+    FontCharacter <|.. CharacterFlyweight
+    FontFactory --> FontCharacter
+    TextEditor --> FontFactory
+    TextEditor --> FontCharacter
+
+    note for FontCharacter "Font character အတွက် interface"
+    note for CharacterFlyweight "Sharing လုပ်နိုင်သော font character"
+    note for FontFactory "Font character များကို create/manage လုပ်သော factory"
+    note for TextEditor "Text editor application"

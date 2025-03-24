@@ -1,0 +1,32 @@
+classDiagram
+    class Component {
+        <<interface>>
+        +operation()
+    }
+    class ConcreteComponent {
+        +operation()
+    }
+    class Decorator {
+        <<abstract>>
+        -component: Component
+        +operation()
+    }
+    class ConcreteDecoratorA {
+        +operation()
+        +addedBehavior()
+    }
+    class ConcreteDecoratorB {
+        +operation()
+        +addedBehavior()
+    }
+
+    Component <|.. ConcreteComponent
+    Component <|.. Decorator
+    Decorator <|-- ConcreteDecoratorA
+    Decorator <|-- ConcreteDecoratorB
+    Decorator o--> Component
+
+    note for Component "အခြေခံ interface"
+    note for Decorator "Decorator အားလုံးအတွက် abstract class"
+    note for ConcreteComponent "အခြေခံ implementation"
+    note for ConcreteDecoratorA "ထပ်တိုးလုပ်ဆောင်ချက်ပါသော decorator"

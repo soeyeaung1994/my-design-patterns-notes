@@ -1,0 +1,30 @@
+classDiagram
+    class ComputerFacade {
+        -cpu: CPU
+        -memory: Memory
+        -hardDrive: HardDrive
+        +startComputer()
+        +shutdownComputer()
+    }
+    class CPU {
+        +freeze()
+        +jump(position: long)
+        +execute()
+    }
+    class Memory {
+        +load(position: long, data: byte[])
+        +free(position: long)
+    }
+    class HardDrive {
+        +read(position: long, size: int): byte[]
+        +write(position: long, data: byte[])
+    }
+
+    ComputerFacade --> CPU
+    ComputerFacade --> Memory
+    ComputerFacade --> HardDrive
+
+    note for ComputerFacade "ကွန်ပျူတာစနစ်အတွက် ရိုးရှင်းသော interface"
+    note for CPU "CPU လုပ်ဆောင်ချက်များ"
+    note for Memory "မန်မိုရီလုပ်ဆောင်ချက်များ"
+    note for HardDrive "ဟတ်ဒ်ဒရိုက်လုပ်ဆောင်ချက်များ"

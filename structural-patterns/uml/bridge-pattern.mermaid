@@ -1,0 +1,27 @@
+classDiagram
+    class Abstraction {
+        -implementation: Implementation
+        +operation()
+    }
+    class RefinedAbstraction {
+        +operation()
+    }
+    class Implementation {
+        <<interface>>
+        +operationImpl()
+    }
+    class ConcreteImplementationA {
+        +operationImpl()
+    }
+    class ConcreteImplementationB {
+        +operationImpl()
+    }
+
+    Abstraction <|-- RefinedAbstraction
+    Abstraction o--> Implementation
+    Implementation <|.. ConcreteImplementationA
+    Implementation <|.. ConcreteImplementationB
+
+    note for Abstraction "အခြေခံ abstract class"
+    note for Implementation "Implementation Interface\nအကောင်အထည်ဖော်မှုများအတွက် interface"
+    note for RefinedAbstraction "Refined Abstraction\nပိုမိုအသေးစိတ်သော abstraction"

@@ -1,0 +1,23 @@
+classDiagram
+    class Client {
+        + request()
+    }
+    class Target {
+        <<interface>>
+        + request()
+    }
+    class Adapter {
+        - adaptee: Adaptee
+        + request()
+    }
+    class Adaptee {
+        + specificRequest()
+    }
+    
+    Client --> Target
+    Target <|.. Adapter
+    Adapter --> Adaptee
+
+    note for Target "Interface ပုံစံနဲ့ Client က သုံးချင်တဲ့ method တွေ"
+    note for Adapter "Adaptee ကို Target interface နဲ့ အသုံးပြုနိုင်အောင် ချိတ်ဆက်ပေးတဲ့ class"
+    note for Adaptee "ရှိပြီးသား class (လက်ရှိ system)"

@@ -1,0 +1,37 @@
+classDiagram
+    class Publisher {
+        -subscribers: Subscriber[]
+        +subscribe(subscriber: Subscriber): void
+        +unsubscribe(subscriber: Subscriber): void
+        +notifySubscribers(): void
+    }
+    
+    class ConcretePublisher {
+        -state: State
+        +getState(): State
+        +setState(state: State): void
+    }
+    
+    class Subscriber {
+        <<interface>>
+        +update(): void
+    }
+    
+    class ConcreteSubscriberA {
+        -publisher: Publisher
+        -subscriberState: State
+        +update(): void
+    }
+    
+    class ConcreteSubscriberB {
+        -publisher: Publisher
+        -subscriberState: State
+        +update(): void
+    }
+    
+    Publisher <|-- ConcretePublisher
+    Subscriber <|.. ConcreteSubscriberA
+    Subscriber <|.. ConcreteSubscriberB
+    Publisher "1" --> "*" Subscriber
+    ConcreteSubscriberA --> ConcretePublisher
+    ConcreteSubscriberB --> ConcretePublisher

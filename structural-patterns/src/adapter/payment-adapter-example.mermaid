@@ -1,0 +1,42 @@
+classDiagram
+    class PaymentProcessor {
+        <<interface>>
+        + processPayment(amount: float)
+        + refund(transactionId: string)
+    }
+    
+    class KBZPayAdapter {
+        - kbzPay: KBZPay
+        + processPayment(amount: float)
+        + refund(transactionId: string)
+    }
+    
+    class KBZPay {
+        + makePayment(amount: float, currency: string)
+        + reverseTransaction(txnId: string)
+    }
+    
+    class WavepayAdapter {
+        - wavePay: WavePay
+        + processPayment(amount: float)
+        + refund(transactionId: string)
+    }
+    
+    class WavePay {
+        + pay(amountInMMK: float)
+        + cancelPayment(id: string)
+    }
+    
+    class EcommerceApp {
+        + checkout(amount: float)
+    }
+    
+    EcommerceApp --> PaymentProcessor
+    PaymentProcessor <|.. KBZPayAdapter
+    PaymentProcessor <|.. WavepayAdapter
+    KBZPayAdapter --> KBZPay
+    WavepayAdapter --> WavePay
+
+    note for PaymentProcessor "Common interface for all payment methods"
+    note for KBZPayAdapter "KBZPay SDK ကို common interface နဲ့ သုံးနိုင်အောင် adapt လုပ်ထားတာ"
+    note for WavepayAdapter "WavePay SDK ကို common interface နဲ့ သုံးနိုင်အောင် adapt လုပ်ထားတာ"

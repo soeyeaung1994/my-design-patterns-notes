@@ -1,0 +1,25 @@
+classDiagram
+    class Flyweight {
+        <<interface>>
+        +operation(extrinsicState)
+    }
+    class ConcreteFlyweight {
+        -intrinsicState
+        +operation(extrinsicState)
+    }
+    class FlyweightFactory {
+        -flyweights: Map
+        +getFlyweight(key): Flyweight
+    }
+    class Client {
+        -extrinsicState
+    }
+
+    Flyweight <|.. ConcreteFlyweight
+    FlyweightFactory --> Flyweight
+    Client --> FlyweightFactory
+    Client --> Flyweight
+
+    note for Flyweight "Flyweight များအတွက် interface"
+    note for ConcreteFlyweight "Sharing လုပ်နိုင်သော object"
+    note for FlyweightFactory "Flyweight object များကို create/manage လုပ်သော factory"

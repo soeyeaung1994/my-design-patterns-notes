@@ -1,4 +1,4 @@
-## ၁။ Creational Patterns
+## Creational Patterns
 
 <div style="font-size:14px;line-height: 2;">
 ဒါက object တွေကို ဘယ်လိုအကောင်းဆုံး create လုပ်မလဲဆိုတဲ့ pattern တွေပါ။ Creational Patterns မှာ အဓိက ၅ မျိုးရှိပါတယ်။

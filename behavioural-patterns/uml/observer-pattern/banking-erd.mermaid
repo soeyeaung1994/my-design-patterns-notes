@@ -1,0 +1,84 @@
+erDiagram
+    CUSTOMER ||--o{ ACCOUNT : owns
+    CUSTOMER {
+        int customer_id PK
+        string first_name
+        string last_name
+        date date_of_birth
+        string address
+        string email
+        string phone
+        string ssn
+        date onboarding_date
+    }
+    
+    ACCOUNT ||--o{ TRANSACTION : contains
+    ACCOUNT {
+        int account_id PK
+        int customer_id FK
+        string account_number
+        string account_type
+        decimal balance
+        date opening_date
+        string status
+        decimal interest_rate
+        int branch_id FK
+    }
+    
+    TRANSACTION {
+        int transaction_id PK
+        int account_id FK
+        date transaction_date
+        string transaction_type
+        decimal amount
+        string description
+        int target_account_id FK
+        string status
+    }
+    
+    BRANCH ||--o{ ACCOUNT : manages
+    BRANCH {
+        int branch_id PK
+        string name
+        string address
+        string code
+        string manager_name
+        string phone
+    }
+    
+    CUSTOMER ||--o{ CUSTOMER_SERVICE_REQUEST : makes
+    CUSTOMER_SERVICE_REQUEST {
+        int request_id PK
+        int customer_id FK
+        date request_date
+        string request_type
+        string description
+        string status
+        int assigned_employee_id FK
+        date resolution_date
+    }
+    
+    LOAN ||--|| ACCOUNT : associated_with
+    LOAN {
+        int loan_id PK
+        int customer_id FK
+        int account_id FK
+        string loan_type
+        decimal amount
+        decimal interest_rate
+        int term_months
+        date start_date
+        date end_date
+        string status
+        decimal remaining_balance
+    }
+    
+    ACCOUNT ||--o{ BENEFICIARY : has
+    BENEFICIARY {
+        int beneficiary_id PK
+        int account_id FK
+        string name
+        string relationship
+        decimal percentage
+        string contact_info
+    }

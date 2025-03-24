@@ -1,0 +1,25 @@
+classDiagram
+    class Facade {
+        -subsystem1: Subsystem1
+        -subsystem2: Subsystem2
+        -subsystem3: Subsystem3
+        +operation()
+    }
+    class Subsystem1 {
+        +operation1()
+    }
+    class Subsystem2 {
+        +operation2()
+    }
+    class Subsystem3 {
+        +operation3()
+    }
+
+    Facade --> Subsystem1
+    Facade --> Subsystem2
+    Facade --> Subsystem3
+
+    note for Facade "ရိုးရှင်းသော interface ပေးသော class"
+    note for Subsystem1 "ပထမ subsystem"
+    note for Subsystem2 "ဒုတိယ subsystem"
+    note for Subsystem3 "တတိယ subsystem"

@@ -1,0 +1,20 @@
+classDiagram
+    class Subject {
+        <<interface>>
+        +request()
+    }
+    class RealSubject {
+        +request()
+    }
+    class Proxy {
+        -realSubject: RealSubject
+        +request()
+    }
+
+    Subject <|.. RealSubject
+    Subject <|.. Proxy
+    Proxy --> RealSubject
+
+    note for Subject "တူညီသော interface"
+    note for RealSubject "အဓိက service ပေးသော class"
+    note for Proxy "Access control လုပ်ပေးသော proxy class"

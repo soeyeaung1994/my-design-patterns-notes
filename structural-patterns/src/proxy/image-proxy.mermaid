@@ -1,0 +1,23 @@
+classDiagram
+    class Image {
+        <<interface>>
+        +display()
+    }
+    class RealImage {
+        -filename: String
+        +display()
+        -loadFromDisk()
+    }
+    class ProxyImage {
+        -filename: String
+        -realImage: RealImage
+        +display()
+    }
+
+    Image <|.. RealImage
+    Image <|.. ProxyImage
+    ProxyImage --> RealImage
+
+    note for Image "ပုံများအတွက် interface"
+    note for RealImage "ပုံအမှန်တကယ် load လုပ်သော class"
+    note for ProxyImage "ပုံ loading ကို lazy loading လုပ်ပေးသော proxy"

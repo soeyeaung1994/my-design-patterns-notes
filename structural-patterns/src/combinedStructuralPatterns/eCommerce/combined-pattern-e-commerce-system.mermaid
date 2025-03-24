@@ -1,0 +1,55 @@
+classDiagram
+    %% Payment Interface and Classes
+    class PaymentProcessor {
+        <<interface>>
+        +processPayment(amount: double)
+    }
+    class KBZPayAdapter {
+        -kbzPay: KBZPayAPI
+        +processPayment(amount: double)
+    }
+    class WavePayAdapter {
+        -wavePay: WavePayAPI
+        +processPayment(amount: double)
+    }
+    
+    %% Payment Decorators
+    class PaymentDecorator {
+        <<abstract>>
+        #processor: PaymentProcessor
+        +processPayment(amount: double)
+    }
+    class LoggingPaymentDecorator {
+        +processPayment(amount: double)
+        -logPayment(amount: double)
+    }
+    class NotificationDecorator {
+        +processPayment(amount: double)
+        -sendNotification(amount: double)
+    }
+    
+    %% Facade
+    class PaymentFacade {
+        -paymentProcessor: PaymentProcessor
+        -notificationService: NotificationService
+        +processOrder(order: Order)
+        +refundOrder(order: Order)
+    }
+    
+    %% Notification System
+    class NotificationService {
+        +sendEmail(message: String)
+        +sendSMS(message: String)
+    }
+
+    PaymentProcessor <|.. KBZPayAdapter
+    PaymentProcessor <|.. WavePayAdapter
+    PaymentProcessor <|.. PaymentDecorator
+    PaymentDecorator <|-- LoggingPaymentDecorator
+    PaymentDecorator <|-- NotificationDecorator
+    PaymentFacade --> PaymentProcessor
+    PaymentFacade --> NotificationService
+    
+    note for PaymentFacade "Client အတွက် ရိုးရှင်းသော interface"
+    note for PaymentProcessor "Payment Gateway များအတွက် interface"
+    note for PaymentDecorator "Payment လုပ်ဆောင်ချက်များ ထပ်တိုးရန်"

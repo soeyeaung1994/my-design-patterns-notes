@@ -1,0 +1,34 @@
+classDiagram
+    class Message {
+        -messageSender: MessageSender
+        +send()
+    }
+    class TextMessage {
+        -content: String
+        +send()
+    }
+    class ImageMessage {
+        -imageUrl: String
+        +send()
+    }
+    class MessageSender {
+        <<interface>>
+        +sendMessage(content: String)
+    }
+    class EmailSender {
+        +sendMessage(content: String)
+    }
+    class SMSSender {
+        +sendMessage(content: String)
+    }
+
+    Message <|-- TextMessage
+    Message <|-- ImageMessage
+    Message o--> MessageSender
+    MessageSender <|.. EmailSender
+    MessageSender <|.. SMSSender
+
+    note for Message "မက်ဆေ့ချ်အမျိုးအစားများအတွက် abstract class"
+    note for MessageSender "ပို့ဆောင်မှုနည်းလမ်းများအတွက် interface"
+    note for TextMessage "စာသားမက်ဆေ့ချ်"
+    note for ImageMessage "ပုံမက်ဆေ့ချ်"

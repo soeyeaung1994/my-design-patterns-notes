@@ -1,0 +1,56 @@
+classDiagram
+    class Account {
+        -accountNumber: String
+        -balance: Double
+        -accountType: String
+        -owner: Customer
+        -observers: AccountObserver[]
+        +deposit(amount: Double): void
+        +withdraw(amount: Double): void
+        +getBalance(): Double
+        +attach(observer: AccountObserver): void
+        +detach(observer: AccountObserver): void
+        +notifyObservers(transaction: Transaction): void
+    }
+    
+    class AccountObserver {
+        <<interface>>
+        +update(account: Account, transaction: Transaction): void
+    }
+    
+    class TransactionLogger {
+        -logFile: String
+        +update(account: Account, transaction: Transaction): void
+        -logTransaction(transaction: Transaction): void
+    }
+    
+    class FraudDetection {
+        -suspiciousAmount: Double
+        -recentTransactions: List~Transaction~
+        +update(account: Account, transaction: Transaction): void
+        -analyzeBehavior(transaction: Transaction): void
+        -flagSuspiciousActivity(account: Account): void
+    }
+    
+    class NotificationService {
+        +update(account: Account, transaction: Transaction): void
+        -sendSMS(customer: Customer, message: String): void
+        -sendEmail(customer: Customer, subject: String, body: String): void
+        -pushMobileNotification(customer: Customer, message: String): void
+    }
+    
+    class Transaction {
+        -transactionId: String
+        -timestamp: DateTime
+        -amount: Double
+        -type: TransactionType
+        -description: String
+        +getAmount(): Double
+        +getType(): TransactionType
+    }
+    
+    AccountObserver <|.. TransactionLogger
+    AccountObserver <|.. FraudDetection
+    AccountObserver <|.. NotificationService
+    Account "1" --> "*" AccountObserver : notifies
+    Account --> Transaction : creates

@@ -1,0 +1,63 @@
+classDiagram
+    %% Document Component (Composite Pattern)
+    class DocumentComponent {
+        <<interface>>
+        +getName(): String
+        +getSize(): long
+        +open()
+        +save()
+    }
+    class Document {
+        -name: String
+        -content: byte[]
+        +getName(): String
+        +getSize(): long
+        +open()
+        +save()
+    }
+    class Folder {
+        -name: String
+        -components: List~DocumentComponent~
+        +getName(): String
+        +getSize(): long
+        +open()
+        +save()
+        +addComponent()
+        +removeComponent()
+    }
+
+    %% Document Renderer (Bridge Pattern)
+    class DocumentRenderer {
+        <<interface>>
+        +render(content: byte[])
+    }
+    class PDFRenderer {
+        +render(content: byte[])
+    }
+    class WordRenderer {
+        +render(content: byte[])
+    }
+    
+    %% Document Proxy
+    class DocumentProxy {
+        -realDocument: Document
+        -path: String
+        +getName(): String
+        +getSize(): long
+        +open()
+        +save()
+    }
+
+    DocumentComponent <|.. Document
+    DocumentComponent <|.. Folder
+    DocumentComponent <|.. DocumentProxy
+    Folder o--> DocumentComponent
+    Document --> DocumentRenderer
+    DocumentRenderer <|.. PDFRenderer
+    DocumentRenderer <|.. WordRenderer
+    DocumentProxy --> Document
+
+    note for DocumentComponent "စာရွက်စာတမ်းများအတွက် interface"
+    note for Document "Document အစစ်"
+    note for DocumentProxy "Lazy loading အတွက် proxy"
+    note for DocumentRenderer "Format အလိုက် ပြသခြင်း"
